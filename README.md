@@ -20,15 +20,33 @@ Baris `VALIDATE_CB_OPEN` yang sudah ada sebelum kolom ini ditambahkan harus diis
 
 ## Menjalankan
 
+### Development
+
 ```bash
 npm install
-cp .env.example .env
-npm run dev          # development
-npm run build && npm start
-pm2 start ecosystem.config.js
+cp .env.example .env   # isi, dan set WA_TESTING=true selama uji coba
+npm run dev
 ```
 
-Selama uji coba, set `WA_TESTING=true`.
+### Production (PM2)
+
+PM2 menjalankan `dist/app.js`, dan `dist/` tidak ada di git, jadi **build dulu sebelum start**.
+
+```bash
+npm install                  # jangan --omit=dev, build butuh typescript
+cp .env.example .env         # isi, dan pastikan WA_TESTING=false
+npm run build
+pm2 start ecosystem.config.js
+pm2 save                     # otomatis jalan lagi setelah reboot
+```
+
+Update kode:
+
+```bash
+git pull && npm install && npm run build && pm2 restart wa-notif-event-mmu
+```
+
+`npm start` hanya menjalankan `node dist/app.js` di foreground (tanpa PM2), cocok untuk coba cepat setelah `npm run build`.
 
 ## Struktur
 

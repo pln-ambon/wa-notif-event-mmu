@@ -30,7 +30,8 @@ export async function setLastAlarmId(alarmId: number): Promise<void> {
 
 export function getAlarmsAfter(alarmId: number): Promise<ScadaAlarm[]> {
   return query<ScadaAlarm>(
-    `select id, id_scada_alarm, type, description, event, processtime, origin
+    // SCADA_ALARM tidak punya kolom id_scada_alarm; id alarm = kolom id (pid adalah id titik, bukan alarm).
+    `select id, id as id_scada_alarm, type, description, event, processtime, origin
        from SCADA_ALARM where id > @alarmId order by id`,
     { alarmId },
   );

@@ -21,7 +21,7 @@ ALTER TABLE VALIDATE_CB_OPEN ADD origin VARCHAR(100) NULL;  -- diisi service saa
 
 | Tabel | Operasi | Fungsi |
 |---|---|---|
-| `SCADA_ALARM` | Baca | Sumber alarm baru |
+| `SCADA_ALARM` | Baca | Sumber alarm baru (kolom `id` dipakai sebagai `id_scada_alarm`) |
 | `VALIDATE_ALARM_NEW` | Baca dan update | State: id alarm terakhir yang sudah diproses (baris `id = 1`) |
 | `VALIDATE_CB_OPEN` | Baca, insert, update, delete | State: feeder yang sedang open atau trip dan belum close |
 

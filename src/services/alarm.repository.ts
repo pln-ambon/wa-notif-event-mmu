@@ -31,7 +31,7 @@ export async function setLastAlarmId(alarmId: number): Promise<void> {
 export function getAlarmsAfter(alarmId: number): Promise<ScadaAlarm[]> {
   return query<ScadaAlarm>(
     `select id, id_scada_alarm, type, description, event, processtime, origin
-       from VALIDATE_SCADA_ALARM where id > @alarmId order by id`,
+       from SCADA_ALARM where id > @alarmId order by id`,
     { alarmId },
   );
 }

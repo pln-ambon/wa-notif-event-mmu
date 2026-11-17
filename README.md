@@ -12,9 +12,18 @@ Notifikasi WhatsApp (WABLAS) untuk event SCADA CB (trip, open, close) di UIW MMU
 ## Perubahan DB yang diperlukan
 
 ```sql
-ALTER TABLE VALIDATE_SCADA_ALARM ADD origin VARCHAR(100) NULL;  -- diisi oleh sumber data alarm
-ALTER TABLE VALIDATE_CB_OPEN     ADD origin VARCHAR(100) NULL;  -- diisi service saat feeder masuk daftar open
+ALTER TABLE VALIDATE_CB_OPEN ADD origin VARCHAR(100) NULL;  -- diisi service saat feeder masuk daftar open
 ```
+
+`SCADA_ALARM` sudah punya kolom `origin` (diisi sumber data alarm), jadi tidak perlu diubah.
+
+## Tabel yang dipakai
+
+| Tabel | Operasi | Fungsi |
+|---|---|---|
+| `SCADA_ALARM` | Baca | Sumber alarm baru |
+| `VALIDATE_ALARM_NEW` | Baca dan update | State: id alarm terakhir yang sudah diproses (baris `id = 1`) |
+| `VALIDATE_CB_OPEN` | Baca, insert, update, delete | State: feeder yang sedang open atau trip dan belum close |
 
 Baris `VALIDATE_CB_OPEN` yang sudah ada sebelum kolom ini ditambahkan harus diisi `origin`-nya (atau dihapus), kalau tidak eskalasi 30m/60m/8j dan penormalannya dilewati.
 

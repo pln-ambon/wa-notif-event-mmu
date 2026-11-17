@@ -1,7 +1,7 @@
 export const REGIONS = ['TERNATE', 'SOFIFI', 'TUAL'] as const;
 export type Region = (typeof REGIONS)[number];
 
-/** Baris VALIDATE_SCADA_ALARM yang dibaca service. */
+/** Baris SCADA_ALARM yang dibaca service. */
 export interface ScadaAlarm {
   id: number;
   id_scada_alarm: number;
